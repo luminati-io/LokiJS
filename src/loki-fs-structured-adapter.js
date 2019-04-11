@@ -120,12 +120,19 @@
           rl.on('line', function(line) {
             // it should single JSON object (a one line file)
             if (self.dbref === null && line !== "") {
-              self.dbref = JSON.parse(line);
+              try {
+                self.dbref = JSON.parse(line);
+              } catch(e) {
+                err = e;
+                callback(null);
+              }
             }
           });
 
           // when that is done, examine its collection array to sequence loading each
           rl.on('close', function() {
+            if (err)
+              callback(null);
             if (self.dbref.collections.length > 0) {
               self.loadNextCollection(dbname, 0, function() {
                 callback(self.dbref);
