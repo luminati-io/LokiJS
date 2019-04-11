@@ -132,7 +132,7 @@
           // when that is done, examine its collection array to sequence loading each
           rl.on('close', function() {
             if (err)
-              callback(null);
+              return callback(null);
             if (self.dbref.collections.length > 0) {
               self.loadNextCollection(dbname, 0, function() {
                 callback(self.dbref);
