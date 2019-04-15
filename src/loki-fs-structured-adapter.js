@@ -158,6 +158,9 @@
      */
     LokiFsStructuredAdapter.prototype.loadNextCollection = function(dbname, collectionIndex, callback) {
       var instream = fs.createReadStream(dbname + "." + collectionIndex);
+      instream.on('error', e=>{
+          callback();
+      });
       var outstream = new stream();
       var rl = readline.createInterface(instream, outstream);
       var self=this,
