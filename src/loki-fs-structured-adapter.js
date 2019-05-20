@@ -170,10 +170,10 @@
         if (line !== "") {
           try {
             obj = JSON.parse(line);
+            self.dbref.collections[collectionIndex].data.push(obj);
           } catch(e) {
             callback(e);
           }
-          self.dbref.collections[collectionIndex].data.push(obj);
         }
       });
 
